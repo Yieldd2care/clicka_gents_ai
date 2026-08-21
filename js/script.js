@@ -92,21 +92,6 @@
     });
   });
 
-  // -- Calendly booking popup -----------------------------------------------
-  const CALENDLY_URL = 'https://calendly.com/clickagents-ai/ai-solutions-for-business';
-  document.querySelectorAll('.btn--primary').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      try {
-        if (typeof Calendly === 'undefined') throw new Error('Calendly widget script did not load');
-        Calendly.initPopupWidget({ url: CALENDLY_URL });
-      } catch (err) {
-        // Widget script blocked/failed (ad-blocker, offline, etc.) — open Calendly directly instead.
-        window.open(CALENDLY_URL, '_blank', 'noopener');
-      }
-    });
-  });
-
   // -- Process rail: scroll-driven fill -----------------------------------
   const railList = document.querySelector('.process__list--v2');
   if (railList) {
