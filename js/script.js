@@ -92,6 +92,16 @@
     });
   });
 
+  // -- Calendly booking popup -----------------------------------------------
+  const CALENDLY_URL = 'https://calendly.com/funnelsexperience/ai-solutions-for-business';
+  document.querySelectorAll('.btn--primary').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      if (typeof Calendly === 'undefined') return; // fall back to normal link if widget failed to load
+      e.preventDefault();
+      Calendly.initPopupWidget({ url: CALENDLY_URL });
+    });
+  });
+
   // -- Process rail: scroll-driven fill -----------------------------------
   const railList = document.querySelector('.process__list--v2');
   if (railList) {
