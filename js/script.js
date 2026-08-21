@@ -32,6 +32,7 @@
   const counters = document.querySelectorAll('[data-counter]');
   const formatNum = (n, fmt) => {
     if (fmt === 'comma') return Math.round(n).toLocaleString('en-US');
+    if (fmt === 'decimal2') return n.toFixed(2);
     return Math.round(n).toString();
   };
   const animateCounter = (el) => {
