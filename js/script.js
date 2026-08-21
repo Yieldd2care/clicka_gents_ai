@@ -93,7 +93,7 @@
   });
 
   // -- Calendly booking popup -----------------------------------------------
-  const CALENDLY_URL = 'https://calendly.com/funnelsexperience/ai-solutions-for-business';
+  const CALENDLY_URL = 'https://calendly.com/clickagents-ai/ai-solutions-for-business';
   document.querySelectorAll('.btn--primary').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
