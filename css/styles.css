@@ -691,6 +691,8 @@ button { font: inherit; cursor: pointer; }
   transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, border-color .25s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .card::before {
   content: "";
@@ -731,7 +733,7 @@ button { font: inherit; cursor: pointer; }
 }
 .service p { color: var(--text-2); margin: 0 0 14px; }
 .service__kicker {
-  margin-top: 20px;
+  margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid var(--border);
   font-weight: 700;
