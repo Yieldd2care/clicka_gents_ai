@@ -1293,8 +1293,11 @@ button { font: inherit; cursor: pointer; }
   margin: 0 auto;
 }
 .contact__cal-wrap {
-  max-width: 520px;
+  max-width: 760px;
   margin: 48px auto 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,.35), 0 2px 0 rgba(255,255,255,.04) inset;
 }
 
 /* ----------- Service featured (AI Automations) ----------- */
@@ -1356,119 +1359,6 @@ button { font: inherit; cursor: pointer; }
   display: grid; place-items: center;
   font-size: 12px; font-weight: 800;
   flex-shrink: 0;
-}
-
-.cal {
-  background: #fff;
-  color: var(--text);
-  border-radius: var(--radius-lg);
-  padding: 22px;
-  box-shadow: 0 30px 60px rgba(0,0,0,.35), 0 2px 0 rgba(255,255,255,.04) inset;
-  border: 1px solid rgba(255,255,255,.1);
-}
-.cal__head {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-.cal__brand { display: flex; align-items: center; gap: 12px; }
-.cal__logo {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  position: relative;
-  flex-shrink: 0;
-}
-.cal__logo::before, .cal__logo::after {
-  content: "";
-  position: absolute;
-  background: rgba(255,255,255,.9);
-  border-radius: 1px;
-}
-.cal__logo::before { left: 9px; right: 9px; top: 12px; height: 2px; }
-.cal__logo::after { left: 9px; right: 9px; top: 18px; bottom: 9px; border-radius: 3px; border: 2px solid rgba(255,255,255,.9); background: transparent; }
-.cal__title { font-size: 15px; font-weight: 700; color: var(--primary); }
-.cal__meta { font-size: 12px; color: var(--text-2); }
-.cal__pill {
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 6px 10px;
-  background: rgba(255,90,60,.1);
-  color: var(--accent);
-  border-radius: 999px;
-}
-.cal__month {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 12px;
-}
-.cal__nav {
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  font-size: 16px; color: var(--primary); font-weight: 700;
-  transition: background .2s, color .2s, border-color .2s;
-}
-.cal__nav:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-.cal__nav:disabled { opacity: .35; cursor: not-allowed; pointer-events: none; }
-.cal__monthlbl { font-size: 14px; font-weight: 700; color: var(--primary); }
-.cal__dow {
-  display: grid; grid-template-columns: repeat(7,1fr);
-  gap: 4px;
-  font-size: 11px; font-weight: 700;
-  color: var(--text-2);
-  text-align: center;
-  margin-bottom: 6px;
-  letter-spacing: 0.04em;
-}
-.cal__grid {
-  display: grid; grid-template-columns: repeat(7,1fr);
-  gap: 4px;
-  margin-bottom: 16px;
-}
-.cal-day {
-  aspect-ratio: 1;
-  display: grid; place-items: center;
-  font-size: 13px; font-weight: 600;
-  color: var(--text);
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  transition: background .2s, color .2s, transform .2s;
-}
-.cal-day:hover { background: rgba(255,90,60,.1); color: var(--accent); }
-.cal-day.is-muted { color: #C8CFD8; cursor: default; pointer-events: none; }
-.cal-day.is-disabled { color: #C8CFD8; cursor: not-allowed; text-decoration: line-through; pointer-events: none; }
-.cal-day.is-active { background: var(--accent); color: #fff; transform: scale(1.05); box-shadow: 0 6px 14px rgba(255,90,60,.4); }
-.cal-day.is-today { box-shadow: inset 0 0 0 1px var(--accent); color: var(--accent); }
-
-.cal__slots {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 14px;
-}
-@media (max-width: 480px) { .cal__slots { grid-template-columns: repeat(2, 1fr); } }
-.slot {
-  padding: 10px 6px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  text-align: center;
-  font-size: 13px; font-weight: 600;
-  color: var(--text);
-  background: #fff;
-  cursor: pointer;
-  transition: border-color .2s, color .2s, background .2s, transform .2s;
-}
-.slot:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-.slot--active { background: var(--accent); border-color: var(--accent); color: #fff; }
-.cal__cta { width: 100%; justify-content: center; }
-.cal__note {
-  margin-top: 10px;
-  font-size: 11.5px;
-  color: var(--text-2);
-  text-align: center;
-  font-style: italic;
 }
 
 .contact__quiet {
