@@ -1913,7 +1913,11 @@ a.contact__quiet-item:hover { color: var(--accent); }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
 }
-@media (max-width: 600px) { .footer__cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (max-width: 600px) {
+  .footer__cols { gap: 14px; }
+  .footer__col h4 { font-size: 11px; margin-bottom: 12px; }
+  .footer__col a { font-size: 12px; padding: 4px 0; }
+}
 .footer__col h4 {
   font-size: 12.5px; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
