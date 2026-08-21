@@ -96,9 +96,14 @@
   const CALENDLY_URL = 'https://calendly.com/funnelsexperience/ai-solutions-for-business';
   document.querySelectorAll('.btn--primary').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      if (typeof Calendly === 'undefined') return; // fall back to normal link if widget failed to load
       e.preventDefault();
-      Calendly.initPopupWidget({ url: CALENDLY_URL });
+      try {
+        if (typeof Calendly === 'undefined') throw new Error('Calendly widget script did not load');
+        Calendly.initPopupWidget({ url: CALENDLY_URL });
+      } catch (err) {
+        // Widget script blocked/failed (ad-blocker, offline, etc.) — open Calendly directly instead.
+        window.open(CALENDLY_URL, '_blank', 'noopener');
+      }
     });
   });
 
