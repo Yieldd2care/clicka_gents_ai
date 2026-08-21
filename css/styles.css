@@ -1411,6 +1411,7 @@ button { font: inherit; cursor: pointer; }
   transition: background .2s, color .2s, border-color .2s;
 }
 .cal__nav:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.cal__nav:disabled { opacity: .35; cursor: not-allowed; pointer-events: none; }
 .cal__monthlbl { font-size: 14px; font-weight: 700; color: var(--primary); }
 .cal__dow {
   display: grid; grid-template-columns: repeat(7,1fr);

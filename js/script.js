@@ -135,36 +135,61 @@
   const calGrid = document.getElementById('calGrid');
   if (calGrid) {
     const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
-    // Show next month for fresh-looking availability
-    const dispDate = new Date(year, month + 1, 1);
-    const monthLbl = dispDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    const ml = document.querySelector('.cal__monthlbl');
-    if (ml) ml.textContent = monthLbl;
+    today.setHours(0, 0, 0, 0);
+    const minYear = today.getFullYear();
+    const minMonth = today.getMonth();
 
-    const firstDay = (dispDate.getDay() + 6) % 7; // Mon=0
-    const daysInMonth = new Date(dispDate.getFullYear(), dispDate.getMonth() + 1, 0).getDate();
-    const prevMonthDays = new Date(dispDate.getFullYear(), dispDate.getMonth(), 0).getDate();
+    // Start one month ahead for fresh-looking availability
+    let dispYear = minYear;
+    let dispMonth = minMonth + 1;
+    if (dispMonth > 11) { dispMonth = 0; dispYear++; }
 
-    let html = '';
-    for (let i = firstDay - 1; i >= 0; i--) {
-      html += `<button class="cal-day is-muted" tabindex="-1">${prevMonthDays - i}</button>`;
-    }
-    for (let d = 1; d <= daysInMonth; d++) {
-      const dow = new Date(dispDate.getFullYear(), dispDate.getMonth(), d).getDay();
-      const isWeekend = dow === 0 || dow === 6;
-      const cls = ['cal-day'];
-      if (isWeekend) cls.push('is-disabled');
-      if (d === 14) cls.push('is-active');
-      html += `<button class="${cls.join(' ')}">${d}</button>`;
-    }
-    const totalCells = firstDay + daysInMonth;
-    const trail = (7 - (totalCells % 7)) % 7;
-    for (let i = 1; i <= trail; i++) {
-      html += `<button class="cal-day is-muted" tabindex="-1">${i}</button>`;
-    }
-    calGrid.innerHTML = html;
+    const monthLbl = document.querySelector('.cal__monthlbl');
+    const prevBtn = document.querySelector('.cal__nav[aria-label="Previous month"]');
+    const nextBtn = document.querySelector('.cal__nav[aria-label="Next month"]');
+
+    const renderCalendar = () => {
+      const dispDate = new Date(dispYear, dispMonth, 1);
+      if (monthLbl) {
+        monthLbl.textContent = dispDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      }
+
+      const firstDay = (dispDate.getDay() + 6) % 7; // Mon=0
+      const daysInMonth = new Date(dispYear, dispMonth + 1, 0).getDate();
+      const prevMonthDays = new Date(dispYear, dispMonth, 0).getDate();
+
+      let html = '';
+      for (let i = firstDay - 1; i >= 0; i--) {
+        html += `<button class="cal-day is-muted" tabindex="-1">${prevMonthDays - i}</button>`;
+      }
+      let defaultActiveSet = false;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cellDate = new Date(dispYear, dispMonth, d);
+        const dow = cellDate.getDay();
+        const isWeekend = dow === 0 || dow === 6;
+        const isPast = cellDate < today;
+        const cls = ['cal-day'];
+        if (isWeekend || isPast) cls.push('is-disabled');
+        if (cellDate.getTime() === today.getTime()) cls.push('is-today');
+        if (!defaultActiveSet && !isWeekend && !isPast) {
+          cls.push('is-active');
+          defaultActiveSet = true;
+        }
+        html += `<button class="${cls.join(' ')}">${d}</button>`;
+      }
+      const totalCells = firstDay + daysInMonth;
+      const trail = (7 - (totalCells % 7)) % 7;
+      for (let i = 1; i <= trail; i++) {
+        html += `<button class="cal-day is-muted" tabindex="-1">${i}</button>`;
+      }
+      calGrid.innerHTML = html;
+
+      if (prevBtn) {
+        const atMin = dispYear === minYear && dispMonth === minMonth;
+        prevBtn.disabled = atMin;
+        prevBtn.classList.toggle('is-disabled', atMin);
+      }
+    };
 
     calGrid.addEventListener('click', (e) => {
       const btn = e.target.closest('.cal-day');
@@ -172,6 +197,24 @@
       calGrid.querySelectorAll('.cal-day.is-active').forEach((d) => d.classList.remove('is-active'));
       btn.classList.add('is-active');
     });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (prevBtn.disabled) return;
+        dispMonth--;
+        if (dispMonth < 0) { dispMonth = 11; dispYear--; }
+        renderCalendar();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        dispMonth++;
+        if (dispMonth > 11) { dispMonth = 0; dispYear++; }
+        renderCalendar();
+      });
+    }
+
+    renderCalendar();
 
     document.querySelectorAll('.cal__slots .slot').forEach((slot) => {
       slot.addEventListener('click', () => {
